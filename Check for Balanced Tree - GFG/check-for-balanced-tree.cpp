@@ -103,32 +103,23 @@ struct Node
 
 class Solution{
     public:
-    int height(struct Node* node)
+
+    pair<bool,int> IsBalanced(Node *root)
     {
-    if(node==NULL)
-        return 0;
-    
-    int left = height(node->left);
-    int right = height(node->right);
-    
-    return max(left, right)+1;
-    }
-    bool isBalanced(Node *root)
-    {
-        
         if(!root)
-            return true;
+            return make_pair(true,0);
         
-        bool leftB = isBalanced(root->left);
-        bool rightB = isBalanced(root->right);
+        pair<bool,int> left = IsBalanced(root->left);
+        pair<bool,int> right = IsBalanced(root->right);
         
-        int left = height(root->left);
-        int right = height(root->right);
-        
-        if( leftB and rightB and abs(left-right)<=1)
-            return true;
+        if( left.first and right.first and abs(left.second-right.second)<=1)
+            return make_pair(true, max(left.second,right.second)+1);
         else
-            return false;
+            return make_pair(false, max(left.second,right.second)+1);
+    }
+    
+    bool isBalanced(Node *root){
+        return IsBalanced(root).first;
     }
 };
 
