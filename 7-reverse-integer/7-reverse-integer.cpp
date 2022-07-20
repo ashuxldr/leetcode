@@ -1,19 +1,19 @@
 class Solution {
 public:
     int reverse(int x) {
-        int sign = x>0 ? 1: -1;
-        long long d = abs(x);
-        long long r = 0;
-        while(d!=0){    
-        r = r*10+(d%10);
-            d = d/10;
+        int rev=0;
+        while(x!=0){    
+        int r = (x%10);
+            x = x/10;
+            
+            if (rev > INT_MAX/10 || ((rev == INT_MAX/10) && (r > INT_MAX % 10)) )
+                return 0;
+            
+            if (rev < INT_MIN/10  || (rev == INT_MIN/10  && r < INT_MIN % 10))
+                return 0;
+            rev= rev*10+r;
         }
-        r = r*sign;
-        if(r>=pow(2,31) and sign==1)
-            return 0;
-        if(sign==-1 and r<=pow(-2,31))
-            return 0;
-        
-        return r;
+      
+        return rev;
     }
 };
