@@ -18,16 +18,16 @@ public:
         if(root->left==NULL and root->right==NULL)
             return 1;
         
-
+        if(!root->left)
+            return minDepth(root->right)+1;
+        
+        if(!root->right)
+            return minDepth(root->left)+1;
         
         int left = minDepth(root->left);
         int right = minDepth(root->right);
         
-        if(!root->left)
-            return right+1;
-        
-        if(!root->right)
-            return left+1;
+
         
         
         return min(left,right)+1;
