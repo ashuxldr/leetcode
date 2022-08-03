@@ -1,27 +1,33 @@
+// Time: O(n)
+// Space: O(1)
 class MyCalendar {
 public:
-    vector<int> start;
-    vector<int> end;
+    // array of pair to store {start,end} dates     
+    vector<pair<int,int>> date;
     MyCalendar() {
     }
     
-    bool book(int s, int e) {
-        for(int i=0;i<start.size();i++){
-        if(s>=start[i] and s<end[i])
+    bool book(int start, int end) {
+        // loop through all booked dates         
+        for(int i=0;i<date.size();i++){
+            
+        // check if start is in b/w any booked date or not             
+        if(start>=date[i].first and start<date[i].second)
             return false;
-        if(e>start[i] and e<end[i])
+        
+        // check if end is in b/w any booked date or not
+        if(end>date[i].first and end<date[i].second)
             return false;
-        if(s<=start[i] and e>=end[i])
+        
+        // check if date overlaps any existing date or not         
+        if(start<=date[i].first and end>=date[i].second)
             return false;
         }
-        start.push_back(s);
-        end.push_back(e);        
+        
+        // date can booked, push to array         
+        date.push_back({start,end});     
+        
+        //return true         
         return true;
     }
 };
-
-/**
- * Your MyCalendar object will be instantiated and called as such:
- * MyCalendar* obj = new MyCalendar();
- * bool param_1 = obj->book(start,end);
- */
