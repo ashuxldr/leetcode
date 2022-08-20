@@ -1,26 +1,27 @@
 class Solution {
 public:
-    int longestConsecutive(vector<int>& nums) {
-        if(nums.size() == 0)
-            return 0;
-        sort(nums.begin(), nums.end());
-        
-        int c=1, m=INT_MIN;
-        for(int i=0;i<nums.size()-1;i++){
-            if(nums[i] == nums[i+1])
-                nums[i] = INT_MIN;
-        }
-        sort(nums.begin(), nums.end());
-        nums.push_back(0);
-        for(int i=0;i<nums.size()-1;i++){
-            // cout<<nums[i]<<c<<endl;
-            if(c>m)
-                m=c;
-            if(nums[i]+1 == nums[i+1])
-                c++;
-            else
-                c=1;
-        }
-        return m;
+int longestConsecutive(vector < int > & nums) {
+  set < int > hashSet;
+  for (int num: nums) {
+    hashSet.insert(num);
+  }
+
+  int longestStreak = 0;
+
+  for (int num: nums) {
+    if (!hashSet.count(num - 1)) {
+      int currentNum = num;
+      int currentStreak = 1;
+
+      while (hashSet.count(currentNum + 1)) {
+        currentNum += 1;
+        currentStreak += 1;
+      }
+
+      longestStreak = max(longestStreak, currentStreak);
     }
+  }
+
+  return longestStreak;
+}
 };
