@@ -9,6 +9,7 @@ private:
         }
         solve(root->left,v,c);
         solve(root->right,v,c);
+        v.pop_back();
     }    
 public:
     int goodNodes(TreeNode* root) {
