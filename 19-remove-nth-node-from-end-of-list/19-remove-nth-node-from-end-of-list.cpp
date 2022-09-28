@@ -23,7 +23,7 @@ public:
         if(c==0)
         {
             ListNode * x = head;
-        head = head->next;
+            head = head->next;
             delete x;
             return head;
         }
